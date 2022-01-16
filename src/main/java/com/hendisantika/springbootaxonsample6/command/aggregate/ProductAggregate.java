@@ -1,7 +1,11 @@
 package com.hendisantika.springbootaxonsample6.command.aggregate;
 
+import com.hendisantika.springbootaxonsample6.command.event.ProductCreatedEvent;
+import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 
@@ -23,5 +27,18 @@ public class ProductAggregate {
     private BigDecimal price;
     private Integer quantity;
 
-    public class ProductAggregate {
+    @CommandHandler
+    public ProductAggregate(CreateProductCommand createProductCommand) {
+        //You can perform all the validations
+        ProductCreatedEvent productCreatedEvent =
+                new ProductCreatedEvent();
+
+        BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
+
+        AggregateLifecycle.apply(productCreatedEvent);
     }
+
+    public ProductAggregate() {
+    }
+
+}
