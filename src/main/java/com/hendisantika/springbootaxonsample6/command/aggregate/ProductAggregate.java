@@ -1,5 +1,6 @@
 package com.hendisantika.springbootaxonsample6.command.aggregate;
 
+import com.hendisantika.springbootaxonsample6.command.command.CreateProductCommand;
 import com.hendisantika.springbootaxonsample6.command.event.ProductCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
